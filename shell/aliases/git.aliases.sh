@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# General Aliases
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ls='ls --color=auto'
-alias ll='ls -lh'
-alias la='ls -lAh'
-alias grep="grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
-
 # Git Aliases
 alias g=git
 alias ga='git add'
@@ -23,9 +13,3 @@ alias gp='git push'
 alias gpl='git pull'
 alias gl='git log --oneline --decorate --graph'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-
-# System Aliases
-alias h=htop
-alias j='jobs -l'
-alias df='df -h'
-alias free='free -m'

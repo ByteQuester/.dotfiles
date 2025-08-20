@@ -12,6 +12,6 @@ link() {
   ln -snf "$src" "$dest"
 }
 
-for f in .bashrc .profile .gitconfig .vimrc; do
+for f in .bashrc .profile .gitconfig; do
   [ -e "$HOME/.dotfiles/$f" ] && link "$HOME/.dotfiles/$f" "$HOME/$f"
 done

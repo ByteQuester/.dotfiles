@@ -1,3 +1,13 @@
 [user]
-	email = working now
-	name = mvp
+    email = info@capitabyte.com
+    name = ByteQuester
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+[pull]
+    rebase = true
+[core]
+    editor = vim

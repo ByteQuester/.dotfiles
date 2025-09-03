@@ -20,17 +20,27 @@ sudo apt-get update && sudo apt-get install -y git
 
 ## Installation
 
-To install these dotfiles, clone this repository and run the `install.sh` script from the `install` directory:
+To install these dotfiles, clone this repository and run the installer. Either of the following works:
 
 ```bash
+# Recommended
 git clone git@github.com:ByteQuester/.dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-./install/install.sh
+~/.dotfiles/install/install.sh
+
+# Or shorthand from repo root (delegates to install/install.sh)
+~/.dotfiles/install.sh
 ```
 
 The installer will:
-1.  Install a comprehensive list of command-line tools.
-2.  Create symbolic links for all your dotfiles and configurations.
+1. Install a comprehensive list of command-line tools (tries fallbacks like batcat/eza/tealdeer when needed).
+2. Create symbolic links for your shell and common configs into your home directory.
+3. Print a tip to source the shell immediately.
+
+After installation, open a new terminal or run:
+
+```bash
+source ~/.dotfiles/shell/main.sh
+```
 
 ## Structure
 
@@ -66,7 +76,7 @@ After changing the theme, open a new terminal to see the changes.
 
 ## Included Tools
 
-The `install_tools.sh` script will install the following tools for you:
+The installer will install the following tools for you (when available):
 
 -   `htop`: Interactive process viewer.
 -   `jq`: A command-line JSON processor.
@@ -81,6 +91,30 @@ The `install_tools.sh` script will install the following tools for you:
 -   `tmux`: A terminal multiplexer.
 -   `silversearcher-ag` (ag): A code-searching tool similar to `ack`.
 -   `ncdu`: A disk usage analyzer with an ncurses interface.
+
+## Troubleshooting
+
+- If you still see a plain white prompt, ensure your terminal uses a theme with ANSI colors and run `source ~/.dotfiles/shell/main.sh`.
+- On older Debian/Ubuntu, `bat` is available as `batcat`, and `exa` may be `eza`. The installer configures aliases/alternatives when possible.
+- To reinstall or update, re-run `~/.dotfiles/install/install.sh`.
+
+## Uninstall
+
+You can remove the setup using the uninstaller. It removes symlinks created by the installer and can optionally restore your previous files from backups:
+
+```bash
+# Show options
+~/.dotfiles/uninstall.sh --help
+
+# Typical safe removal (remove symlinks, restore backups if available)
+~/.dotfiles/uninstall.sh --restore
+
+# Also remove repo and backups (be careful)
+~/.dotfiles/uninstall.sh --restore --purge-backups --remove-repo
+
+# Dry-run to see what would happen
+~/.dotfiles/uninstall.sh --dry-run --restore
+```
 
 ## Usage Examples
 

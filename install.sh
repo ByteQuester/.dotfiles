@@ -1,17 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-backup_dir="$HOME/.dotfiles_backup/$(date +%Y%m%d-%H%M%S)"
-mkdir -p "$backup_dir"
+# Delegate to the modular installer to ensure consistent behavior
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec "$SCRIPT_DIR/install/install.sh" "$@"
 
-link() {
-  local src="$1"; local dest="$2"
-  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
-    mv "$dest" "$backup_dir/"
-  fi
-  ln -snf "$src" "$dest"
-}
-
-for f in .bashrc .profile .gitconfig; do
-  [ -e "$HOME/.dotfiles/$f" ] && link "$HOME/.dotfiles/$f" "$HOME/$f"
-done

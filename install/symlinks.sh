@@ -22,11 +22,19 @@ link() {
     ln -snf "$src" "$dest"
 }
 
-# Link shell configuration
-link "$DOTFILES_DIR/shell/main.sh" "$HOME/.bashrc" # Overwriting .bashrc to source the new setup
+# Link shell configuration to modular entrypoint
+link "$DOTFILES_DIR/shell/main.sh" "$HOME/.bashrc"
 
-# Link config files
-for config_file in $DOTFILES_DIR/config/*; do
-    base_file=$(basename "$config_file")
-    link "$config_file" "$HOME/$base_file"
-done
+# Link common dotfiles if present
+[ -e "$DOTFILES_DIR/.gitconfig" ] && link "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
+[ -e "$DOTFILES_DIR/.vimrc" ] && link "$DOTFILES_DIR/.vimrc" "$HOME/.vimrc"
+[ -e "$DOTFILES_DIR/.profile" ] && link "$DOTFILES_DIR/.profile" "$HOME/.profile"
+
+# Link any additional top-level config files under config/ to $HOME
+if [ -d "$DOTFILES_DIR/config" ]; then
+  for config_file in "$DOTFILES_DIR"/config/*; do
+      [ -e "$config_file" ] || continue
+      base_file=$(basename "$config_file")
+      link "$config_file" "$HOME/$base_file"
+  done
+fi
